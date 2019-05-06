@@ -22,4 +22,12 @@ public class Receiver {
     return this.phoneNumber;
   }
 
+  @Override
+  public boolean equals(Object obj) {
+    if(obj == null) return false;
+    if(this == obj) return true;
+    if(!(obj instanceof Receiver)) return false;
+    Receiver that = (Receiver)obj;
+    return this.name.equals(that.name) && this.phoneNumber.equals(that.phoneNumber);
+  }
 }
