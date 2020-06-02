@@ -22,4 +22,9 @@
 
 ## 도메인 모델 패턴
 
+- 사용자 인터페이스(UI) or 표현(Presentation)
+- 응용 (Application)
+- 도메인 (Domain)
+  - 도메인의 핵심 규칙을 구현한 코드가 도메인 계층에 위치
+- 인프라스트럭처 (Infrastructure)
 
