@@ -24,4 +24,12 @@ public class Order {
   public void changeShipped() {
     this.state = OrderState.SHIPPED;
   }
+
+  public void cancel() {
+
+  }
+
+  public void completePayment() {
+
+  }
 }
