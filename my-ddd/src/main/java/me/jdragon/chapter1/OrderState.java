@@ -5,6 +5,8 @@ package me.jdragon.chapter1;
  * @project my-ddd
  * @description
  */
-public class OrderState {
+public enum OrderState {
+
+  PAYMENT_WAITING, PREPARING, SHIPPED, DELIVERING, DELIVERY_COMPLETED;
 
 }
