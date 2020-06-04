@@ -2,6 +2,7 @@ package me.jdragon.chapter1;
 
 
 import java.util.List;
+import net.bytebuddy.pool.TypePool.Resolution.Illegal;
 
 /**
  * @author choijaeyong on 2020/06/03.
@@ -44,16 +45,22 @@ public class Order {
     }
   }
 
+  private void verifyNotYetShipped() {
+    if (state != OrderState.PAYMENT_WAITING && state != OrderState.PREPARING)
+      throw new IllegalArgumentException("already shipped");
+  }
+//  private boolean isShippingChangeable() {
+//    return state == OrderState.PAYMENT_WAITING || state == OrderState.PREPARING;
+//  }
+
 
   public void changeShippingInfo(ShippingInfo shippingInfo) {
-    if (!isShippingChangeable()) {
-      throw new IllegalArgumentException("can't change shipping in " + state);
-    }
-    this.shippingInfo = shippingInfo;
-  }
-
-  private boolean isShippingChangeable() {
-    return state == OrderState.PAYMENT_WAITING || state == OrderState.PREPARING;
+    verifyNotYetShipped();
+    setShippingInfo(shippingInfo);
+//    if (!isShippingChangeable()) {
+//      throw new IllegalArgumentException("can't change shipping in " + state);
+//    }
+//    this.shippingInfo = shippingInfo;
   }
 
   public void changeShipped() {
@@ -61,7 +68,8 @@ public class Order {
   }
 
   public void cancel() {
-
+    verifyNotYetShipped();
+    this.state = OrderState.CANCELED;
   }
 
   public void completePayment() {
