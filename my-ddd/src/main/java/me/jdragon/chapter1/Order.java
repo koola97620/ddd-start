@@ -2,7 +2,6 @@ package me.jdragon.chapter1;
 
 
 import java.util.List;
-import net.bytebuddy.pool.TypePool.Resolution.Illegal;
 
 /**
  * @author choijaeyong on 2020/06/03.
@@ -14,6 +13,7 @@ public class Order {
   private ShippingInfo shippingInfo;
   private List<OrderLine> orderLines;
   private Money totalAmounts;
+  private String orderNumber;
 
   public Order(List<OrderLine> orderLines, ShippingInfo shippingInfo) {
     setOrderLines(orderLines);
@@ -74,5 +74,23 @@ public class Order {
 
   public void completePayment() {
 
+  }
+
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ( (orderNumber == null) ? 0 : orderNumber.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) return true;
+    if (obj == null) return false;
+    if (obj.getClass() != Order.class) return false;
+    Order other = (Order)obj;
+    if (this.orderNumber == null) return false;
+    return this.orderNumber.equals(other.orderNumber);
   }
 }
