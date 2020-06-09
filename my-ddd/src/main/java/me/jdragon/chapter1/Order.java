@@ -9,15 +9,23 @@ import java.util.List;
  * @description
  */
 public class Order {
+  private OrderNo id;
   private OrderState state;
   private ShippingInfo shippingInfo;
   private List<OrderLine> orderLines;
   private Money totalAmounts;
   private String orderNumber;
+  private Orderer orderer;
 
-  public Order(List<OrderLine> orderLines, ShippingInfo shippingInfo) {
+  public Order(Orderer orderer,List<OrderLine> orderLines, ShippingInfo shippingInfo, OrderState state) {
+    setOrderer(orderer);
     setOrderLines(orderLines);
     setShippingInfo(shippingInfo);
+  }
+
+  private void setOrderer(Orderer orderer) {
+    if (orderer == null) throw new IllegalArgumentException("no orderer");
+    this.orderer = orderer;
   }
 
   private void setShippingInfo(ShippingInfo shippingInfo) {
@@ -74,6 +82,10 @@ public class Order {
 
   public void completePayment() {
 
+  }
+
+  public OrderNo getId() {
+    return id;
   }
 
   @Override
