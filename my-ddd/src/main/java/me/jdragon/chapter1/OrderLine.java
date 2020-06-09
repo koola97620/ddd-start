@@ -8,11 +8,11 @@ package me.jdragon.chapter1;
 public class OrderLine {
 
   private final Product product;
-  private final int price;
+  private final Money price;
   private final int quantity;
   private final Money amounts;
 
-  public OrderLine(Product product,int price, int quantity) {
+  public OrderLine(Product product, Money price, int quantity) {
     this.product = product;
     this.price = price;
     this.quantity = quantity;
@@ -20,7 +20,7 @@ public class OrderLine {
   }
 
   private Money calculateAmounts() {
-    return new Money(price * quantity);
+    return new Money(price.getValue() * quantity);
   }
 
   public Money getAmounts() {
