@@ -7,7 +7,7 @@ import java.util.List;
  * @project my-ddd
  * @description
  */
-public interface RuldDiscounter {
+public interface RuleDiscounter {
   public Money applyRules(Customer customer, List<OrderLine> orderLines);
 
 }
