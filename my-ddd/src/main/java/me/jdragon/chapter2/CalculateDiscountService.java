@@ -9,14 +9,30 @@ import java.util.List;
  */
 public class CalculateDiscountService {
 
+  private CustomerRepository customerRepository;
   private RuleDiscounter ruleDiscounter;
 
-  public CalculateDiscountService(RuleDiscounter ruleDiscounter) {
+  public CalculateDiscountService(CustomerRepository customerRepository,  RuleDiscounter ruleDiscounter) {
+    this.customerRepository = customerRepository;
     this.ruleDiscounter = ruleDiscounter;
   }
 
+  public CalculateDiscountService(RuleDiscounter ruleDiscounter) {
+    customerRepository = new CustomerRepository();
+    this.ruleDiscounter = ruleDiscounter;
+  }
+
+
   public Money calculateDiscount(List<OrderLine> orderLines, String customerId) {
-    return null;
+    Customer customer = findCustomer(customerId);
+    return ruleDiscounter.applyRules(customer,orderLines);
+  }
+
+  private Customer findCustomer(String customerId) {
+
+    Customer customer = customerRepository.findById(customerId);
+    if (customer == null) throw new NoCustomerException();
+    return customer;
   }
 
 

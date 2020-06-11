@@ -7,4 +7,7 @@ package me.jdragon.chapter2;
  */
 public class Customer {
 
+  public Customer(String customerId) {
+
+  }
 }
