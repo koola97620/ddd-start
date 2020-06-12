@@ -8,6 +8,7 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.Description;
 
@@ -64,6 +65,16 @@ public class CalculateDiscountServiceTest {
 //
 //    assertThatExceptionOfType(NoCustomerException.class)
 //        .isThrownBy( () -> calculateDiscountService.calculateDiscount(orderLines, "noCustId"));
+  }
+
+  @Test
+  @DisplayName("생성자 주입을 통해 구현변경의 어려움을 해결")
+  public void constructor() {
+    RuleDiscounter ruleDiscounter = new DroolsRuleDiscounter();
+    CalculateDiscountService discountService = new CalculateDiscountService(ruleDiscounter);
+
+    RuleDiscounter ruleDiscounter2 = new SimpleRuleDiscounter();
+    CalculateDiscountService discountService2 = new CalculateDiscountService(ruleDiscounter2);
   }
 
 }

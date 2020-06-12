@@ -13,4 +13,8 @@ public class DroolsRuleDiscounter implements RuleDiscounter {
   public Money applyRules(Customer customer, List<OrderLine> orderLines) {
     return null;
   }
+
+  public Money calc() {
+    return null;
+  }
 }

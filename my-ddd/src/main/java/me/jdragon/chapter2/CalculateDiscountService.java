@@ -8,7 +8,6 @@ import java.util.List;
  * @description
  */
 public class CalculateDiscountService {
-
   private CustomerRepository customerRepository;
   private RuleDiscounter ruleDiscounter;
 
@@ -16,24 +15,31 @@ public class CalculateDiscountService {
     this.customerRepository = customerRepository;
     this.ruleDiscounter = ruleDiscounter;
   }
+  public Money calculateDiscount(List<OrderLine> orderLines, String customerId) {
+    Customer customer = findCustomer(customerId);
+    return ruleDiscounter.applyRules(customer,orderLines);
+  }
 
   public CalculateDiscountService(RuleDiscounter ruleDiscounter) {
     customerRepository = new CustomerRepository();
     this.ruleDiscounter = ruleDiscounter;
   }
 
-
-  public Money calculateDiscount(List<OrderLine> orderLines, String customerId) {
-    Customer customer = findCustomer(customerId);
-    return ruleDiscounter.applyRules(customer,orderLines);
-  }
-
   private Customer findCustomer(String customerId) {
-
     Customer customer = customerRepository.findById(customerId);
     if (customer == null) throw new NoCustomerException();
     return customer;
   }
 
 
+  private DroolsRuleDiscounter droolsRuleDiscounter;
+  public CalculateDiscountService() {
+    droolsRuleDiscounter = new DroolsRuleDiscounter();
+  }
+  public Money calculateDiscountUsingDroolsDiscounter(List<OrderLine> orderLines,
+      String customerId) {
+    Customer customer = findCustomer(customerId);
+    Money money = droolsRuleDiscounter.calc();
+    return money;
+  }
 }

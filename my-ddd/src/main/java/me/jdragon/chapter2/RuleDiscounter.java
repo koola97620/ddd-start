@@ -8,6 +8,5 @@ import java.util.List;
  * @description
  */
 public interface RuleDiscounter {
-  public Money applyRules(Customer customer, List<OrderLine> orderLines);
-
+  Money applyRules(Customer customer, List<OrderLine> orderLines);
 }
