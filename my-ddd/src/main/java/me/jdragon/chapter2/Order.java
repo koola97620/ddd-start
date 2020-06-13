@@ -2,12 +2,10 @@ package me.jdragon.chapter2;
 
 
 import java.util.List;
-import me.jdragon.chapter1.Money;
-import me.jdragon.chapter1.OrderLine;
 import me.jdragon.chapter1.OrderNo;
-import me.jdragon.chapter1.OrderState;
-import me.jdragon.chapter1.Orderer;
 import me.jdragon.chapter1.ShippingInfo;
+import me.jdragon.myddd.domain.OrderState;
+
 
 /**
  * @author choijaeyong on 2020/06/03.
@@ -18,10 +16,21 @@ public class Order {
   private OrderNo id;
   private OrderState state;
   private ShippingInfo shippingInfo;
-  private List<OrderLine> orderLines;
-  private Money totalAmounts;
   private String orderNumber;
   private Orderer orderer;
+
+  private Money totalAmounts;
+  //private List<OrderLine> orderLines;
+  private OrderLines orderLines;
+  public void changeOrderLines(List<OrderLine> newLines) {
+    orderLines.changeOrderLines(newLines);
+    this.totalAmounts = orderLines.getTotalAmounts();
+  }
+//  private void calculateTotalAmounts() {
+//    this.totalAmounts = new me.jdragon.chapter1.Money(
+//        orderLines.stream().mapToInt(x -> x.getAmounts().getValue()).sum()
+//    );
+//  }
 
   public Order(Orderer orderer,List<OrderLine> orderLines, ShippingInfo shippingInfo, OrderState state) {
     setOrderer(orderer);
@@ -43,20 +52,22 @@ public class Order {
 
   private void setOrderLines(List<OrderLine> orderLines) {
     verifyAtLeastOneOrMoreOrderLines(orderLines);
-    this.orderLines = orderLines;
-    calculateTotalAmounts();
-  }
-
-  private void calculateTotalAmounts() {
-    this.totalAmounts = new Money(
-        orderLines.stream().mapToInt(x -> x.getAmounts().getValue()).sum()
-    );
+    //this.orderLines = orderLines;
+    //calculateTotalAmounts();
   }
 
   private void verifyAtLeastOneOrMoreOrderLines(List<OrderLine> orderLines) {
     if (orderLines == null || orderLines.isEmpty()) {
       throw new IllegalArgumentException("no OrderLine");
     }
+  }
+  public void changeShippingInfo(ShippingInfo shippingInfo) {
+    verifyNotYetShipped();
+    setShippingInfo(shippingInfo);
+//    if (!isShippingChangeable()) {
+//      throw new IllegalArgumentException("can't change shipping in " + state);
+//    }
+//    this.shippingInfo = shippingInfo;
   }
 
   private void verifyNotYetShipped() {
@@ -66,16 +77,6 @@ public class Order {
 //  private boolean isShippingChangeable() {
 //    return state == OrderState.PAYMENT_WAITING || state == OrderState.PREPARING;
 //  }
-
-
-  public void changeShippingInfo(ShippingInfo shippingInfo) {
-    verifyNotYetShipped();
-    setShippingInfo(shippingInfo);
-//    if (!isShippingChangeable()) {
-//      throw new IllegalArgumentException("can't change shipping in " + state);
-//    }
-//    this.shippingInfo = shippingInfo;
-  }
 
   public void changeShipped() {
     this.state = OrderState.SHIPPED;

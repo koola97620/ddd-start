@@ -36,6 +36,7 @@ public class CalculateDiscountServiceTest {
   }
 
   @Test
+  @Description("정상동작")
   public void test2() {
     CustomerRepository stubRepo = mock(CustomerRepository.class);
     when(stubRepo.findById("noCustId")).thenReturn(null);
