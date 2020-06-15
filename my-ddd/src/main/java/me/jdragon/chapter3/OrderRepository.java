@@ -8,4 +8,5 @@ package me.jdragon.chapter3;
 public interface OrderRepository {
 
   Order findById(OrderId orderId);
+  void save(Order order);
 }
