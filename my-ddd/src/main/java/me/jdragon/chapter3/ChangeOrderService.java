@@ -21,7 +21,9 @@ public class ChangeOrderService {
   public void changeShippingInfo(OrderId orderId, ShippingInfo newShippingInfo, boolean useNewShippingAddrAsMemberAddr) {
     Order order = orderRepository.findById(orderId);
     if (order == null) throw new OrderNotFoundException();
+
     order.changeShippingInfo(newShippingInfo);
+
     if (useNewShippingAddrAsMemberAddr) {
       Customer customer = customerRepository.findById(order.getOrderer().getCustomerId());
       customer.changeAddress(newShippingInfo.getAddress());

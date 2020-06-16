@@ -2,6 +2,8 @@ package me.jdragon.chapter3;
 
 
 import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import me.jdragon.chapter1.OrderNo;
 
 import me.jdragon.myddd.domain.OrderState;
@@ -12,6 +14,9 @@ import me.jdragon.myddd.domain.OrderState;
  * @project my-ddd
  * @description
  */
+
+@Entity
+@Table(name = "purchase_order")
 public class Order {
   private OrderNo id;
   private OrderState state;
