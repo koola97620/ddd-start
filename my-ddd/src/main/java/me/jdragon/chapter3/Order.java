@@ -2,7 +2,14 @@ package me.jdragon.chapter3;
 
 
 import java.util.List;
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Table;
 import me.jdragon.chapter1.OrderNo;
 
@@ -17,11 +24,20 @@ import me.jdragon.myddd.domain.OrderState;
 
 @Entity
 @Table(name = "purchase_order")
+@Access(AccessType.FIELD)
 public class Order {
+  @EmbeddedId
   private OrderNo id;
+
+  @Column(name = "satate")
+  @Enumerated(EnumType.STRING)
   private OrderState state;
+
+  @Embedded
   private ShippingInfo shippingInfo;
   private String orderNumber;
+
+  @Embedded
   private Orderer orderer;
 
   private Money totalAmounts;
