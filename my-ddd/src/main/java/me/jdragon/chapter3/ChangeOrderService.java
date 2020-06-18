@@ -26,7 +26,7 @@ public class ChangeOrderService {
 
     if (useNewShippingAddrAsMemberAddr) {
       Customer customer = customerRepository.findById(order.getOrderer().getCustomerId());
-      customer.changeAddress(newShippingInfo.getAddress());
+      //customer.changeAddress(newShippingInfo.getAddress());
     }
   }
 }
