@@ -13,11 +13,15 @@ public class AttributeConverter implements javax.persistence.AttributeConverter<
 
   @Override
   public Integer convertToDatabaseColumn(Money money) {
-    return null;
+    if (money == null)
+      return null;
+    else
+      return money.getValue();
   }
 
   @Override
-  public Money convertToEntityAttribute(Integer integer) {
-    return null;
+  public Money convertToEntityAttribute(Integer value) {
+    if (value == null) return null;
+    else return new Money(value);
   }
 }
