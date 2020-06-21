@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Embedded;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -40,7 +41,9 @@ public class Order {
   @Embedded
   private Orderer orderer;
 
-  private Money totalAmounts;
+  @Column(name = "total_amounts")
+  @Convert(converter = MoneyConverter.class)
+  private Money totalAmounts; // MoneyConverter 적용해서 값 변환
   //private List<OrderLine> orderLines;
   private OrderLines orderLines;
   public void changeOrderLines(List<OrderLine> newLines) {
