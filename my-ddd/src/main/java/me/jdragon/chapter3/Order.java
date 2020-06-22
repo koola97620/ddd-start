@@ -4,13 +4,17 @@ package me.jdragon.chapter3;
 import java.util.List;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.Convert;
+import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 import me.jdragon.chapter1.OrderNo;
 
@@ -44,12 +48,16 @@ public class Order {
   @Column(name = "total_amounts")
   @Convert(converter = MoneyConverter.class)
   private Money totalAmounts; // MoneyConverter 적용해서 값 변환
-  //private List<OrderLine> orderLines;
-  private OrderLines orderLines;
-  public void changeOrderLines(List<OrderLine> newLines) {
-    orderLines.changeOrderLines(newLines);
-    this.totalAmounts = orderLines.getTotalAmounts();
-  }
+
+  @ElementCollection
+  @CollectionTable(name="order_line",joinColumns = @JoinColumn(name="order_number"))
+  @OrderColumn(name="line_idx")
+  private List<OrderLine> orderLines;
+  //private OrderLines orderLines;
+//  public void changeOrderLines(List<OrderLine> newLines) {
+//    orderLines.changeOrderLines(newLines);
+//    this.totalAmounts = orderLines.getTotalAmounts();
+//  }
 //  private void calculateTotalAmounts() {
 //    this.totalAmounts = new me.jdragon.chapter1.Money(
 //        orderLines.stream().mapToInt(x -> x.getAmounts().getValue()).sum()

@@ -1,5 +1,8 @@
 package me.jdragon.chapter3;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.Embedded;
 import me.jdragon.chapter1.Product;
 
 /**
@@ -7,11 +10,21 @@ import me.jdragon.chapter1.Product;
  * @project my-ddd
  * @description
  */
+@Embeddable
 public class OrderLine {
 
+  @Embedded
+  private ProductId productId;
+
   private final Product product;
+
+  @Column(name = "price")
   private final Money price;
+
+  @Column(name = "quantity")
   private final int quantity;
+
+  @Column(name="amounts")
   private final Money amounts;
 
   public OrderLine(Product product, Money price, int quantity) {
