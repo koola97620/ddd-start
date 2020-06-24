@@ -13,6 +13,7 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OrderColumn;
 import javax.persistence.Table;
@@ -31,6 +32,10 @@ import me.jdragon.myddd.domain.OrderState;
 @Table(name = "purchase_order")
 @Access(AccessType.FIELD)
 public class Order {
+
+  @Id
+  private String number;
+
   @EmbeddedId
   private OrderNo id;
 
