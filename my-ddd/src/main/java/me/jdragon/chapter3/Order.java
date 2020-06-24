@@ -33,9 +33,6 @@ import me.jdragon.myddd.domain.OrderState;
 @Access(AccessType.FIELD)
 public class Order {
 
-  @Id
-  private String number;
-
   @EmbeddedId
   private OrderNo id;
 
