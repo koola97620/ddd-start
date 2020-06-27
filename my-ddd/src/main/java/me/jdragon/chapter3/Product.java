@@ -1,13 +1,11 @@
 package me.jdragon.chapter3;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Convert;
-import javax.persistence.Converter;
 import javax.persistence.ElementCollection;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -34,7 +32,7 @@ public class Product {
   @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE},orphanRemoval = true)
   @JoinColumn(name = "product_id")
   @OrderColumn(name ="list_idx")
-  private List<Image> images = new ArrayList<>();
+  private List<ImageAbstract> imageAbstracts = new ArrayList<>();
 
   @ElementCollection
   @CollectionTable(name = "product_category", joinColumns = @JoinColumn(name = "product_id"))
@@ -42,8 +40,8 @@ public class Product {
 
   private CategoryId category;
 
-  public void changeImages(List<Image> newImages) {
-    images.clear();
-    images.addAll(newImages);
+  public void changeImages(List<ImageAbstract> newImageAbstracts) {
+    imageAbstracts.clear();
+    imageAbstracts.addAll(newImageAbstracts);
   }
 }
