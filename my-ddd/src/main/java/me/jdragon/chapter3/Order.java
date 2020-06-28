@@ -13,6 +13,7 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OrderColumn;
@@ -51,7 +52,7 @@ public class Order {
   @Convert(converter = MoneyConverter.class)
   private Money totalAmounts; // MoneyConverter 적용해서 값 변환
 
-  @ElementCollection
+  @ElementCollection(fetch = FetchType.EAGER)
   @CollectionTable(name="order_line",joinColumns = @JoinColumn(name="order_number"))
   @OrderColumn(name="line_idx")
   private List<OrderLine> orderLines;

@@ -9,6 +9,7 @@ import javax.persistence.Convert;
 import javax.persistence.ElementCollection;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
@@ -29,7 +30,7 @@ public class Product {
   @Convert(converter = MoneyConverter.class)
   private Money money;
 
-  @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE},orphanRemoval = true)
+  @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE},orphanRemoval = true , fetch = FetchType.EAGER)
   @JoinColumn(name = "product_id")
   @OrderColumn(name ="list_idx")
   private List<ImageAbstract> imageAbstracts = new ArrayList<>();
