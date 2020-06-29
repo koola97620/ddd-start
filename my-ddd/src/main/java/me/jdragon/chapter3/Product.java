@@ -39,6 +39,11 @@ public class Product {
   @CollectionTable(name = "product_category", joinColumns = @JoinColumn(name = "product_id"))
   private Set<CategoryId> categoryIds;
 
+  @ElementCollection(fetch = FetchType.EAGER)
+  @CollectionTable(name = "product_option", joinColumns = @JoinColumn(name = "product_id"))
+  @OrderColumn(name = "list_idx")
+  private List<Option> options = new ArrayList<>();
+
   private CategoryId category;
 
   public void changeImages(List<ImageAbstract> newImageAbstracts) {
