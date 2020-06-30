@@ -1,5 +1,6 @@
 package me.jdragon.chapter3;
 
+import java.util.Date;
 import java.util.List;
 import org.springframework.stereotype.Repository;
 
@@ -15,4 +16,6 @@ public interface OrderRepository {
   void save(Order order);
   void delete(Order order);
   //List<Order> findByOrdererId(String ordererId, int startRow, int size);
+
+  List<Order> findByOrderer(String ordererId, Date fromDate, Date toDate);
 }

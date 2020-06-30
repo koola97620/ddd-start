@@ -29,4 +29,7 @@ public class Orderer {
     return customerId;
   }
 
+  public MemberId getMemberId() {
+    return memberId;
+  }
 }

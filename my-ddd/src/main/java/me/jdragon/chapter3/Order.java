@@ -151,4 +151,10 @@ public class Order {
   public Orderer getOrderer() {
     return this.orderer;
   }
+
+  private OrdererId ordererId;
+
+  public OrdererId getOrdererId() {
+    return ordererId;
+  }
 }
