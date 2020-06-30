@@ -12,4 +12,7 @@ public interface ProductRepository {
   List<Product> findByCategoryId(CategoryId categoryId, int page, int size);
 
   int countsByCategoryId(Long id);
+
+  void save(Product product);
+
 }

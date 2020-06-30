@@ -46,6 +46,10 @@ public class Product {
 
   private CategoryId category;
 
+  public Product(ProductId productId) {
+
+  }
+
   public void changeImages(List<ImageAbstract> newImageAbstracts) {
     imageAbstracts.clear();
     imageAbstracts.addAll(newImageAbstracts);
