@@ -14,4 +14,10 @@ public class ChangePasswordService {
     member.changePassword(currentPw,newPw);
   }
 
+  public void changePassword(ChangePasswordRequest req) {
+    Member existingMember = MemberServiceHelper
+        .findExistingMember(memberRepository, req.getMemberId());
+    existingMember.changePassword(req.getCurPw(), req.getNewPw());
+  }
+
 }
