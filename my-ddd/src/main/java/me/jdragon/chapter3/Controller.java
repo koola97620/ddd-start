@@ -18,6 +18,8 @@ public class Controller {
 
   @RequestMapping
   public String join(JoinRequest joinRequest, Errors errors) {
+    checkEmpty(joinRequest.getId() , "id", errors);
+    checkEmpty(joinRequest.getName(), "name", errors);
     try {
       joinService.join(joinRequest);
       return "successview";
@@ -27,6 +29,10 @@ public class Controller {
     } catch (InvalidPasswordException e) {
       return "error";
     }
+
+  }
+
+  private void checkEmpty(String id, String id1, Errors errors) {
 
   }
 

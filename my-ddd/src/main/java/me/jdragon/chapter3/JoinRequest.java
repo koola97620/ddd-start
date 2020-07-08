@@ -19,4 +19,8 @@ public class JoinRequest {
   public Object getPassword() {
     return null;
   }
+
+  public String getName() {
+    return null;
+  }
 }
