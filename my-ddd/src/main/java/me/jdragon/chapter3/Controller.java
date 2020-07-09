@@ -18,16 +18,18 @@ public class Controller {
 
   @RequestMapping
   public String join(JoinRequest joinRequest, Errors errors) {
-    checkEmpty(joinRequest.getId() , "id", errors);
-    checkEmpty(joinRequest.getName(), "name", errors);
+    new JoinRequestValidator().validate(joinRequest, errors);
+    if (errors.hasErrors()) return "formViewr";
+//    checkEmpty(joinRequest.getId() , "id", errors);
+//    checkEmpty(joinRequest.getName(), "name", errors);
     try {
-      joinService.join(joinRequest);
+      joinService.join(joinRequest , errors);
       return "successview";
     } catch (EmptyPropertyException e) {
 
-      return "error";
+      return "formView";
     } catch (InvalidPasswordException e) {
-      return "error";
+      return "formView";
     }
 
   }
