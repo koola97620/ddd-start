@@ -1,6 +1,8 @@
 package me.jdragon.chapter3;
 
+import java.util.List;
 import me.jdragon.chapter1.OrderNo;
+import me.jdragon.chapter3.dto.OrderView;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,10 +17,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class OrderController {
 
   private OrderService orderService;
+  private OrderViewDao orderViewDao;
 
-  public OrderController(OrderService orderService) {
+  public OrderController(OrderService orderService, OrderViewDao orderViewDao) {
 
     this.orderService = orderService;
+    this.orderViewDao = orderViewDao;
+  }
+
+  @RequestMapping("/myorders")
+  public String list(ModelMap model) {
+    String ordererId = "";
+    List<OrderView> orderViews = orderViewDao.selectByOrderer(ordererId);
+    model.addAttribute("orders",orderViews);
+    return "order/list";
   }
 
   @RequestMapping(value = "/order/place", method = RequestMethod.POST)
