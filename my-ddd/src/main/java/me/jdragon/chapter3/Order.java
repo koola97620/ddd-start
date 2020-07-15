@@ -56,6 +56,10 @@ public class Order {
   @CollectionTable(name="order_line",joinColumns = @JoinColumn(name="order_number"))
   @OrderColumn(name="line_idx")
   private List<OrderLine> orderLines;
+
+
+  private List<Coupon> usedCoupons;
+
   //private OrderLines orderLines;
 //  public void changeOrderLines(List<OrderLine> newLines) {
 //    orderLines.changeOrderLines(newLines);
@@ -156,5 +160,24 @@ public class Order {
 
   public OrdererId getOrdererId() {
     return ordererId;
+  }
+
+
+  private Money calculatePayAmounts() {
+    Money totalAmounts = calculateTotalAmounts();
+
+
+
+
+    return null;
+  }
+
+  private Coupon calculateDiscount(Coupon coupon) {
+    return null;
+  }
+
+  private Money calculateTotalAmounts() {
+
+    return null;
   }
 }
